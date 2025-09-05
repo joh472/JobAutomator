@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LazyJobSeeker Bot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+    * {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Animated gradient background */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #ff6f61, #ffca28);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+    }
+
+    /* Typing effect for header */
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .typing {
+      display: inline-block;
+      border-right: 3px solid #ffca28;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 4s steps(30, end) infinite, blink 0.7s step-end infinite;
+    }
+
+    @keyframes typing {
+      0% { width: 0 }
+      50% { width: 100% }
+      100% { width: 0 }
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: transparent }
+      50% { border-color: #ffca28 }
+    }
+
+    header p {
+      font-size: 1.2rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    main {
+      padding: 3rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .intro h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .intro p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: auto;
+      opacity: 0.9;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Cards with hover glow */
+    .card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 8px 8px 20px rgba(0,0,0,0.3),
+                  -8px -8px 20px rgba(255,255,255,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 12px 24px rgba(255, 202, 40, 0.6);
+      border: 1px solid #ffca28;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: #ffd54f;
+    }
+
+    .card p {
+      opacity: 0.9;
+      font-size: 1rem;
+    }
+
+    .start {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    /* Pulsing button */
+    .start button {
+      background: linear-gradient(135deg, #ff6f00, #ff9100);
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      animation: pulse 2s infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .start button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #ff9100, #ffab40);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(255, 202, 40, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+      background: rgba(0,0,0,0.4);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1><span class="typing">JobAutomator Bot</span></h1>
+    <p>💤 Let the bot do the hustle while you relax</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h2>Welcome to Effortless Job Hunting</h2>
+      <p>
+        Why waste hours browsing job boards and writing the same applications?
+        JobAutomator Bot finds opportunities, writes personalized applications,
+        and even tracks responses for you. More jobs, less stress.
+      </p>
+    </section>
+
+    <div class="grid">
+      <div class="card">
+        <h3>⚡ Auto-Apply</h3>
+        <p>Submit applications to multiple platforms instantly without lifting a finger.</p>
+      </div>
+      <div class="card">
+        <h3>✍️ Smart Cover Letters</h3>
+        <p>Generates AI-powered, role-specific cover letters that stand out.</p>
+      </div>
+      <div class="card">
+        <h3>📄 CV Tailoring</h3>
+        <p>Adapts your resume to match each job description — boosting ATS success.</p>
+      </div>
+      <div class="card">
+        <h3>🔔 Job Alerts</h3>
+        <p>Never miss an opening. Get notified the moment a matching role appears.</p>
+      </div>
+      <div class="card">
+        <h3>👨‍💻 Built by John Mutemi</h3>
+        <p>A passionate developer who believes job seekers deserve tools that work as hard as they do (or harder!).</p>
+      </div>
+    </div>
+
+    <div class="start">
+      <button onclick="startBot()">🚀 Run JobAutomator</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 JobAutomator Bot | Built with passion ☕ & ❤️ by Musyoka Mutemi</p>
+  </footer>
+
+  <script>
+    function startBot() {
+      fetch('/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: "start" })
+      })
+      .then(res => res.json())
+      .then(data => alert("JobAutomatorBot is now running please wait to login and start earning while playing pool..."))
+      .catch(err => alert("Error starting bot."));
+    }
+  </script>
+
+</body>
+</html>
