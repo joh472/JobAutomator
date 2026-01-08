@@ -2,53 +2,104 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>LazyJobSeeker Bot</title>
+  <title>JAY'S Bot Interface</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@600&display=swap');
 
     * {
-      margin: 0; padding: 0;
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Animated gradient background */
     body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(-45deg, #1e3c72, #2a5298, #ff6f61, #ffca28);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      color: #f5f5f5;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #f9fbe7, #e3f2fd);
+      color: #333;
       line-height: 1.6;
     }
 
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
     header {
-      text-align: center;
-      padding: 2rem 1rem;
-      background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(10px);
-      border-bottom: 2px solid rgba(255,255,255,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to right, #00695c, #004d40);
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    /* Typing effect for header */
     header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+    }
+
+    header img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+
+    .slider-container {
+      overflow: hidden;
+      width: 100%;
+      background-color: #fff;
+      padding: 40px 0;
+    }
+
+    .slider-track {
+      display: flex;
+      animation: slide 20s linear infinite;
+      width: max-content;
+    }
+
+    .slider-track img {
+      width: 380px;
+      height: auto;
+      margin: 0 20px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .slider-track img:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes slide {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    .new-intro {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .new-intro h1 {
       font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
+      color: #1a237e;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1rem;
     }
 
     .typing {
       display: inline-block;
-      border-right: 3px solid #ffca28;
+      border-right: 2px solid #1a237e;
       white-space: nowrap;
       overflow: hidden;
-      animation: typing 4s steps(30, end) infinite, blink 0.7s step-end infinite;
+      animation: typing 5s steps(40, end) infinite, blink 0.75s step-end infinite;
     }
 
     @keyframes typing {
@@ -59,175 +110,330 @@
 
     @keyframes blink {
       0%, 100% { border-color: transparent }
-      50% { border-color: #ffca28 }
+      50% { border-color: #1a237e }
     }
 
-    header p {
-      font-size: 1.2rem;
-      font-weight: 400;
-      opacity: 0.9;
-    }
-
-    main {
-      padding: 3rem 2rem;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .intro {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .intro h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .intro p {
+    .new-intro p {
       font-size: 1.1rem;
       max-width: 700px;
-      margin: auto;
-      opacity: 0.9;
+      margin: 0 auto;
     }
 
-    .grid {
+    .info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      gap: 1.5rem;
+      margin-top: 2rem;
     }
 
-    /* Cards with hover glow */
     .card {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 8px 8px 20px rgba(0,0,0,0.3),
-                  -8px -8px 20px rgba(255,255,255,0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 12px 24px rgba(255, 202, 40, 0.6);
-      border: 1px solid #ffca28;
-    }
-
-    .card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      color: #ffd54f;
-    }
-
-    .card p {
-      opacity: 0.9;
-      font-size: 1rem;
-    }
-
-    .start {
-      text-align: center;
-      margin-top: 3rem;
-    }
-
-    /* Pulsing button */
-    .start button {
-      background: linear-gradient(135deg, #ff6f00, #ff9100);
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 30px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-      animation: pulse 2s infinite;
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
     }
 
-    .start button:hover {
-      transform: scale(1.05);
-      background: linear-gradient(135deg, #ff9100, #ffab40);
+    .card:hover {
+      transform: translateY(-6px);
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0.7); }
-      70% { box-shadow: 0 0 0 15px rgba(255, 202, 40, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0); }
+    .highlight-card {
+      background: #fffde7;
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      color: #d84315;
+    }
+
+    .card p,
+    .card li {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .bottom-settings,
+    .bottom-start {
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    label {
+      font-size: 1.1rem;
+      margin-right: 0.5rem;
+    }
+
+    select,
+    button {
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    select {
+      background-color: #fce4ec;
+    }
+
+    button {
+      background: linear-gradient(to right, #43a047, #1b5e20);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    button:hover:not(:disabled) {
+      background: linear-gradient(to right, #388e3c, #0d5302);
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      background: linear-gradient(to right, #9e9e9e, #757575);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status-indicator {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .status-ready {
+      background-color: #e8f5e8;
+      color: #2e7d32;
+    }
+
+    .status-running {
+      background-color: #fff3e0;
+      color: #ef6c00;
+    }
+
+    .status-error {
+      background-color: #ffebee;
+      color: #c62828;
     }
 
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 1.5rem;
+      background: #eeeeee;
       margin-top: 4rem;
-      background: rgba(0,0,0,0.4);
-      font-size: 0.9rem;
-      opacity: 0.8;
+      font-style: italic;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    @media screen and (max-width: 768px) {
+      .slider-track {
+        flex-direction: column;
+        animation: none;
+      }
+
+      .slider-track img {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .new-intro h1 {
+        font-size: 2rem;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1><span class="typing">JobAutomator Bot</span></h1>
-    <p>💤 Let the bot do the hustle while you relax</p>
+    <h1>🤖 JAY BOT</h1>
+    <img src="{{ url_for('static', filename='intro.jpg') }}" alt="Profile Picture">
   </header>
 
+  <div class="slider-container">
+    <div class="slider-track">
+      <img src="{{ url_for('static', filename='j1.jpg') }}" alt="Image 1">
+      <img src="{{ url_for('static', filename='j2.jpg') }}" alt="Image 2">
+      <img src="{{ url_for('static', filename='j1.jpg') }}" alt="Image 3">
+      <img src="{{ url_for('static', filename='j2.jpg') }}" alt="Image 4">
+      <img src="{{ url_for('static', filename='j1.jpg') }}" alt="Image 5">
+      <img src="{{ url_for('static', filename='j2.jpg') }}" alt="Image 6">
+    </div>
+  </div>
+
   <main>
-    <section class="intro">
-      <h2>Welcome to Effortless Job Hunting</h2>
+    <section class="new-intro">
+      <h1><span class="typing">🤖 Welcome to the World of Automation</span></h1>
       <p>
-        Why waste hours browsing job boards and writing the same applications?
-        JobAutomator Bot finds opportunities, writes personalized applications,
-        and even tracks responses for you. More jobs, less stress.
+        Step into the future where machines speak, act, and think on your behalf. This bot was built with passion, purpose,
+        and precision — translating English into African and global languages, with voice playback and submission on your behalf.
       </p>
     </section>
 
-    <div class="grid">
-      <div class="card">
-        <h3>⚡ Auto-Apply</h3>
-        <p>Submit applications to multiple platforms instantly without lifting a finger.</p>
+    <div class="info-grid">
+      <div class="card highlight-card">
+        <h2>🚀 Why This Bot Rocks</h2>
+        <ul>
+          <li>It automatically translates English into multiple languages.</li>
+          <li>It reads the translation out loud using Text-to-Speech.</li>
+          <li>It logs in, clicks, and submits without you lifting a finger.</li>
+          <li>It saves your time, energy, and sanity.</li>
+        </ul>
       </div>
+
       <div class="card">
-        <h3>✍️ Smart Cover Letters</h3>
-        <p>Generates AI-powered, role-specific cover letters that stand out.</p>
+        <h2>🧑‍💻 Meet the Builder – John Mutemi</h2>
+        <p>
+          I'm not just a developer. I'm a <strong>bot architect</strong> — I design systems that handle tasks so you don't
+          have to. From translation to automation, I build digital workers that <strong>never sleep</strong>.
+        </p>
+        <p><em>"I don't just code — I robonomize the web."</em></p>
       </div>
+
       <div class="card">
-        <h3>📄 CV Tailoring</h3>
-        <p>Adapts your resume to match each job description — boosting ATS success.</p>
+        <h2>🧠 Architecting Intelligent Behavior</h2>
+        <p><em>"Robonomizing Internet of Things in Artificial Intelligence and using cloud to secure humanoid."</em></p>
+        <p>I believe in blending machines with intelligence to unlock a new era of automation. Every bot I build carries a piece of this dream.</p>
+        <p><em>Creating and building algorithms with technique to mimic human behavior.</em></p>
       </div>
+
       <div class="card">
-        <h3>🔔 Job Alerts</h3>
-        <p>Never miss an opening. Get notified the moment a matching role appears.</p>
-      </div>
-      <div class="card">
-        <h3>👨‍💻 Built by John Mutemi</h3>
-        <p>A passionate developer who believes job seekers deserve tools that work as hard as they do (or harder!).</p>
+        <h2>🩸 Automation Runs in My Veins</h2>
+        <p>Bots are like invisible teammates.<br>They work 24/7. They don't complain. They don't forget.<br>They help us automate the boring, and unlock the creative.</p>
+        <p>Whether it's translating text, trading forex, or chatting with users —<br>There's a bot for that… and I'm building it. 💪</p>
       </div>
     </div>
 
-    <div class="start">
-      <button onclick="startBot()">🚀 Run JobAutomator</button>
+    <div class="bottom-settings">
+      <label for="language">Select Language:</label>
+      <select id="language">
+        <option value="sw">Swahili</option>
+        <option value="en">English</option>
+        <option value="fr">French</option>
+        <option value="es">Spanish</option>
+        <option value="pt">Portuguese</option>
+        <option value="ar">Arabic</option>
+      </select>
+    </div>
+
+    <div class="bottom-start">
+      <button id="runButton" onclick="startBot(event)">🚀 Run Bot</button>
+      <div id="status" class="status-indicator status-ready">✅ Ready to start</div>
     </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 JobAutomator Bot | Built with passion ☕ & ❤️ by Musyoka Mutemi</p>
+    <p>&copy; 2025 Intron Bot Interface. Built by John Mutemi.</p>
+    <p><em>Bots are my heartbeat, code is my language, and automation is my lifestyle.</em></p>
   </footer>
 
   <script>
-    function startBot() {
+    let botRunning = false;
+
+    function startBot(event) {
+      if (botRunning) {
+        alert("Bot is already running!");
+        return;
+      }
+
+      const lang = document.getElementById("language").value || "sw";
+      const button = document.getElementById("runButton");
+      const status = document.getElementById("status");
+
+      // Update UI
+      button.disabled = true;
+      button.textContent = "🔄 Starting...";
+      status.textContent = "⏳ Starting bot...";
+      status.className = "status-indicator status-running";
+      botRunning = true;
+
       fetch('/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: "start" })
+        body: JSON.stringify({ language: lang })
       })
-      .then(res => res.json())
-      .then(data => alert("JobAutomatorBot is now running please wait to login and start earning while playing pool..."))
-      .catch(err => alert("Error starting bot."));
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status === "started") {
+          status.textContent = "✅ " + data.message;
+          status.className = "status-indicator status-ready";
+          alert("✅ Bot started successfully using language: " + data.language.toUpperCase());
+        } else if (data.status === "error") {
+          throw new Error(data.message || "Failed to start bot");
+        } else {
+          throw new Error("Unexpected response from server");
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        status.textContent = "❌ Error: " + error.message;
+        status.className = "status-indicator status-error";
+        alert("❌ Failed to start bot: " + error.message);
+      })
+      .finally(() => {
+        // Re-enable button after 3 seconds
+        setTimeout(() => {
+          button.disabled = false;
+          button.textContent = "🚀 Run Bot";
+          botRunning = false;
+          
+          // Reset status after 5 seconds
+          setTimeout(() => {
+            if (!botRunning) {
+              status.textContent = "✅ Ready to start";
+              status.className = "status-indicator status-ready";
+            }
+          }, 5000);
+        }, 3000);
+      });
     }
+
+    // Add keyboard shortcut (Ctrl + Enter to start bot)
+    document.addEventListener('keydown', function(event) {
+      if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+        event.preventDefault();
+        startBot(event);
+      }
+    });
+
+    // Add some interactive effects
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add click animation to cards
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('click', function() {
+          this.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 150);
+        });
+      });
+
+      // Add hover effect to slider images
+      const sliderImages = document.querySelectorAll('.slider-track img');
+      sliderImages.forEach(img => {
+        img.addEventListener('mouseenter', function() {
+          this.style.transform = 'scale(1.05) rotate(1deg)';
+        });
+        img.addEventListener('mouseleave', function() {
+          this.style.transform = 'scale(1) rotate(0deg)';
+        });
+      });
+    });
   </script>
 
 </body>

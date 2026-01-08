@@ -1,35 +1,23 @@
-# Python
+# Virtual environment
+venv/
+
+# Python cache
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
 
-# Virtual environments
-venv/
-env/
-.venv/
+# Chrome / Selenium
+chrome_profile/
+chromedriver-win32/
 
-# Logs
-*.log
-
-# OS files
-.DS_Store
-Thumbs.db
+# Debug files
+debug_page_*.html
+debug_*.png
 
 # Binaries
-*.exe
-*.dll
-*.so
-*.dylib
-*.lib
+ffmpeg.exe
 
-# Jupyter
-.ipynb_checkpoints
+# Temp / misc
+*.ftz
 
-# Others
-*.png
-*.mp4
-*.wav
-*.mp3
-*.avi
-*.zip
+# Env files
+.env
